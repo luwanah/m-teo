@@ -9,9 +9,38 @@ function getWeather() {
     //on va récupéré les valeurs des inputs
     const latitude = document.getElementById('latitude').value;
     const longitude = document.getElementById('longitude').value;
+    const city = document.getElementById('city').value;
+
     console.log('latitude', latitude);
     console.log('longitude', longitude);
-    const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=metric&lang=fr`;
+    //const url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apikey}&units=metric&lang=fr`;
+    //const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lat=${latitude}&lon=${longitude}&appid=${apikey}&appid=${apikey}&units=metric&lang=fr`
+    let url = `https://api.openweathermap.org/data/2.5/weather?`
+
+    //on test si tous les chanps sont remplis
+    if (city && latitude && longitude) {
+        url += `lat=${latitude}&lon=${longitude}&appid=${apikey}&units=metric&lang=fr`;
+    } else if (city && latitude) {
+        console.log('je suis dans le cas city latitude')
+        url += `q=${city}&appid=${apikey}&units=metric&lang=fr`;
+    } else if (city && longitude) {
+        console.log('je suis dans city longitude')
+        url += `q=${city}&appid=${apikey}&units=metric&lang=fr`;
+    } else if (longitude && latitude == '') {
+        console.log('erreur longitude')
+        alert('attention vous devez remplire la latitude pour que les coordonées soit correct')
+    } else if (latitude && longitude == '') {
+        console.log('erreur latitude')
+        alert('attention vous devez remplire la longitude pour que les coordonées soit correct')
+    } else if (city) {
+        console.log('je suis dans city')
+        url += `q=${city}&appid=${apikey}&units=metric&lang=fr`;
+    } else {
+        console.log('dernier')
+        url += `lat=${latitude}&lon=${longitude}&appid=${apikey}&units=metric&lang=fr`;
+    }
+
+
 
     //on va cherché une requete ajax avec fetch
     fetch(url)
@@ -76,7 +105,7 @@ function displayWeather(weather) {
     cardTitle.textContent = `${weather.city}, ${weather.country}`;
 
     //céer le paragraphe de la descriptionfu temps
-    const descP= document.createElement('p');
+    const descP = document.createElement('p');
     descP.className = 'card-text';
     descP.textContent = ` ${weather.description}`;
 

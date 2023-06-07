@@ -13,7 +13,7 @@
 <body>
     <div class="container mt-5">
         <h1>applie météo</h1>
-        <p>entre les coordonné géographique (latitude et longitude):</p>
+        <h4>entre les coordonné géographique (latitude et longitude):</h4>
         <div class="form-group">
             <label for="latitude">latitude :</label>
             <input type="text" id="latitude" class="form-control">
@@ -23,9 +23,13 @@
             <label for="longitude">longitude :</label>
             <input type="text" id="longitude" class="form-control">
         </div>
-        <!--TODO - applelez une métode avec la propriété onclick-->
+        <h4 class="mt-5" $colors:($blue)>entre le nom de la ville :</h4>
+        <div class="mt-2">
+            <label for="city"> villes :</label>
+            <input type="text" id="city" class="form-control">
+        </div>
         <button class="btn btn-primary my-3 form-control " onclick="getWeather()">affiche la méteo</button>
-        
+
         <div id="result" class="mt-3"></div>
     </div>
     <script src="script.js"></script>
